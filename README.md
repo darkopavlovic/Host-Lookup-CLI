@@ -5,7 +5,6 @@ CLI tool to query DNS records.
 # Usage
 
 Clone the repo and run with `go run cli.go command --host www.example.com`
-Example: `go run cli.go ip --host www.google.com`
 
 ###### Available commands
 
