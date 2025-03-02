@@ -4,14 +4,15 @@ CLI tool to query DNS records.
 
 # Usage
 
-Clone the repo and run with `go run cli.go command --host www.example.com`
+- Prerequisite: Go 1.23.X
+- Clone the repo and run with `go run cli.go command --host www.example.com`
 
 ###### Available commands
 
-- ns -> "Look up host name servers"
-- ip -> "Look up host IP addresses"
-- cname -> "Look up host CNAME"
-- mx -> "Look up host MX records"
+- `ns` ➡️ Look up host name servers
+- `ip` ➡️ Look up host IP addresses
+- `cname` ➡️ Look up host CNAME
+- `mx` ➡️ Look up host MX records
 
 # License
 

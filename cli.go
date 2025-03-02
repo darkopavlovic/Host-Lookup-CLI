@@ -6,24 +6,26 @@ import (
 	"net"
 	"os"
 
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
-	app := cli.NewApp()
-	app.Name = "Host Lookup CLI"
-	app.Usage = "Query IPs, CNAMEs, MX Records and Name Servers"
+	app := &cli.App{
+		Name:  "Host Lookup CLI",
+		Usage: "Query IPs, CNAMEs, MX Records and Name Servers",
+	}
 
-	myFlags := []cli.Flag {
-		&cli.StringFlag {
-			Name: "host",
+	myFlags := []cli.Flag{
+		&cli.StringFlag{
+			Name:  "host",
 			Value: "google.com",
+			Usage: "Specify the host to look up",
 		},
 	}
 
-	app.Commands = []*cli.Command {
+	app.Commands = []*cli.Command{
 		{
-			Name: "ns",
+			Name:  "ns",
 			Usage: "Look up host name servers",
 			Flags: myFlags,
 			Action: func(c *cli.Context) error {
@@ -32,32 +34,32 @@ func main() {
 					fmt.Println(err)
 					return err
 				}
-				for i := 0; i < len(ns); i++ {
-					fmt.Println(ns[i].Host)
+				for _, n := range ns {
+					fmt.Println(n.Host)
 				}
 				return nil
 			},
 		},
 		{
-			Name:"ip",
+			Name:  "ip",
 			Usage: "Look up host IP addresses",
-			Flags:myFlags,
+			Flags: myFlags,
 			Action: func(c *cli.Context) error {
 				ip, err := net.LookupIP(c.String("host"))
-				if err !=nil {
+				if err != nil {
 					fmt.Println(err)
 					return err
 				}
-				for i := 0; i < len(ip); i++ {
-					fmt.Println(ip[i])
+				for _, i := range ip {
+					fmt.Println(i)
 				}
 				return nil
 			},
 		},
 		{
-			Name:"cname",
+			Name:  "cname",
 			Usage: "Look up host CNAME",
-			Flags:myFlags,
+			Flags: myFlags,
 			Action: func(c *cli.Context) error {
 				cname, err := net.LookupCNAME(c.String("host"))
 				if err != nil {
@@ -69,7 +71,7 @@ func main() {
 			},
 		},
 		{
-			Name:"mx",
+			Name:  "mx",
 			Usage: "Look up host MX records",
 			Flags: myFlags,
 			Action: func(c *cli.Context) error {
@@ -78,13 +80,14 @@ func main() {
 					fmt.Println(err)
 					return err
 				}
-				for i := 0; i < len(mx); i++ {
-					fmt.Println(mx[i].Host, mx[i].Pref)
+				for _, m := range mx {
+					fmt.Println(m.Host, m.Pref)
 				}
 				return nil
 			},
 		},
 	}
+
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
