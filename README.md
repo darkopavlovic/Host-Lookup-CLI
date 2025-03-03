@@ -1,6 +1,6 @@
 # Host Lookup CLI [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-CLI tool to query DNS records.
+CLI tool to query DNS records. This tool uses the net package from Go's standard library to perform common DNS queries.
 
 # Usage
 
